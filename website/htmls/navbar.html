@@ -1,0 +1,60 @@
+
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+        <li class="nav-item">
+            <a class="navbar-brand" href="/">
+            <img class="rounded" src="{{ url_for('static', filename='imagens/estudos.png')}}" alt="Bootstrap" width="60" height="48">
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/">Inicio</a>
+        </li>
+        
+        
+        {% if not 'Nome' in session %}
+        <li class="nav-item">
+            <a href="/auth/registrar">Registrar</a>
+        </li>
+        
+        
+        <form class="d-flex" action="/auth/entrar" method="POST">
+            <input class="form-control me-2" type="email" placeholder="Email"  name="email_login">
+            <input class="form-control me-2" type="password" placeholder="Senha" name="senha_login">
+            <button class="btn btn-success" type="submit">Entrar</button>
+        </form>
+        {% else %}
+        
+        <li class="nav-item dropdown">
+            <p> Nome: {{ session.Nome }}</p>
+            <p>Ip: {{ session.Ip }} </p>
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Lista de Ações
+            </a>
+            <ul class="dropdown-menu">
+            {% if session.Admin == True %}
+            
+                <!-- Itens de administração   -->
+                <li><a class="dropdown-item" href="/auth/listar">Página de administração usuários.</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Página de administração de questões</a></li>
+                
+            {% else %}
+                <!-- Itens do Usuário -->
+                <li><a class="dropdown-item" href="#">Página de acompanhamento.</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Página de questões.</a></li>
+                
+            {% endif %}
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/auth/verifica_codigo/{{session.Id}}">Alterar senha.</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/auth/sair">Sair</a></li>
+            </ul>
+            </li>
+
+        {% endif %}
+    </div>
+    </nav>        
+        
+</header>

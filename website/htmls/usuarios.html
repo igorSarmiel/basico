@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+    {% if lista_usuarios %}
+    <table class="table table-dark table-striped">
+        <thead>
+            <th scope="col">Id</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Email</th>
+            <th scope="col">Admin</th>
+            <th scope="col">Ativo</th>
+            <th scope="col">Ações</th>
+        </thead>
+    <tbody>
+        {% for usuario in lista_usuarios %}        
+            <tr scope="row">
+                <td>{{ usuario.id }}</td>
+                <td>{{ usuario.nome }}</td>
+                <td>{{ usuario.email }}</td>
+                {% if usuario.admin == True %}<td>Sim</td>{% else %}<td>Não</td>{% endif %}
+                {% if usuario.ativo == True %}<td>Sim</td>{% else %}<td>Não</td>{% endif %}
+                <td>
+                 <a href="/auth/editar/{{ usuario.id }}"> <button class="btn btn-warning">Editar</button> </a> 
+                 <a href="/auth/apagar/{{ usuario.id }}"> <button class="btn btn-danger">Apagar</button> </a>
+                </td>
+                
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>    
+    {% endif %}
+    
+
+    {% if usuario_apagar %}
+        <form action="/auth/apagar/{{ usuario_apagar.id }}" method="POST">
+            <h1 class="display-3"> Confirme a exclusão do usuário abaixo:</h1>
+            <div class="mb-3">
+                <label for="user_id" class="form-label">Id</label>
+                <input class="form-control" type="text" value="{{ usuario_apagar.id}}" disabled name="id_usuario" id="user_id">
+            </div>
+
+            <div class="mb-3">
+                <label for="user_nome" class="form-label">Nome</label>
+                <input class="form-control" type="text" value="{{ usuario_apagar.nome}}" disabled id="user_nome">
+            </div>
+            
+            <div class="mb-3">
+                <label for="user_email" class="form-label">Email</label>
+                <input class="form-control" type="text" value="{{ usuario_apagar.email}}" disabled id="user_email">
+            </div>
+            <input type="submit" value="Apagar" class="btn btn-danger">
+        </form>
+        <br><br>
+        <a href="/auth/listar"><button class="btn btn-success">Cancelar</button></a>
+    {% endif %}
+    
+
+
+    {% if usuario_editar %}
+    <form action="/auth/editar/{{ usuario_editar.id }}" method="POST">
+        <h1 class="display-3"> Confirme a exclusão do usuário abaixo:</h1>
+        <div class="mb-3">
+            <label for="user_id" class="form-label">Id</label>
+            <input class="form-control" type="text" value="{{ usuario_editar.id}}" disabled name="id_usuario" id="user_id">
+        </div>
+
+        <div class="mb-3">
+            <label for="user_nome" class="form-label">Nome</label>
+            <input class="form-control" type="text" value="{{ usuario_editar.nome}}" disabled id="user_nome">
+        </div>
+        
+        <div class="mb-3">
+            <label for="user_email" class="form-label">Email</label>
+            <input class="form-control" type="text" value="{{ usuario_editar.email}}" disabled id="user_email">
+        </div>
+
+        <div class="mb-3">
+            <label for="user_email" class="form-label">Admin</label>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" value=False  id="user_admin" name="user_admin" {% if usuario_editar.admin == False %} checked {% endif %}>
+            <label class="form-check-label" for="user_admin">Não</label>
+            </div>
+            
+            <div class="form-check">
+            <input class="form-check-input" type="radio" value=True  id="user_admin" name="user_admin" {% if usuario_editar.admin == True %} checked {% endif %}>
+            <label class="form-check-label" for="user_admin">Sim</label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="user_email" class="form-label">Ativo</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" value=False  id="user_ativo" name="user_ativo" {% if usuario_editar.ativo == False %} checked {% endif %}>
+                <label class="form-check-label" for="user_ativo">Não</label>
+            </div>
+            
+            <div class="form-check">
+                <input class="form-check-input" type="radio" value=True  id="user_ativo" name="user_ativo" {% if usuario_editar.ativo == True %} checked {% endif %}>
+                <label class="form-check-label" for="user_ativo">Sim</label>
+            </div>
+        </div>
+
+        <input type="submit" value="Salvar alterações" class="btn btn-Info">
+    </form>
+    <br><br>
+    <a href="/auth/listar"><button class="btn btn-danger">Cancelar</button></a>
+{% endif %}
+
+
+
+
+{% endblock %}

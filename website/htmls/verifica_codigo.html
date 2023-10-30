@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block conteudo %}
+<h2 class="display-3">>>>Um email foi enviado para você. Digite o código de verificação para alterar sua senha:</h2>
+
+<form action="/auth/verifica_codigo/{{session.Id}}" method="POST">
+
+    <div class="mb-3">
+        <label for="cod_ver" class="form-label">Código de Verificação:</label>
+        <input class="form-control" type="text" name="cod_ver" id="cod_ver">
+    </div>
+    <input type="submit" value="Verificar" class="btn btn-Info">
+    
+</form>
+    
+
+{% endblock %}

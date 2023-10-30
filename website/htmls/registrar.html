@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %}
+
+
+{% block conteudo %}
+
+    <form action="/auth/registrar" method="POST">
+        <div class="mb-3">
+            <input class="form-control" type="text" name="nome" id="novo_nome" placeholder="Digite seu nome">
+        </div>
+        
+        <div class="mb-3">
+            <input class="form-control" type="email" name="email" id="" placeholder="Email">
+        </div>
+        
+        <div class="mb-3">
+            <input class="form-control" type="password" name="senha1" id="" placeholder="Senha">
+        </div>
+
+        <div class="mb-3">
+            <input class="form-control" type="password" name="senha2" id="" placeholder="Repita a senha">
+        </div>
+        
+        <input type="submit" value="Registrar" class="btn btn-success">
+
+    </form>
+    <p>Se já tem uma senha registre-se <a href="/auth/entrar">aqui.</a></p>
+{% endblock %}

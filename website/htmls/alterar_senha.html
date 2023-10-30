@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block conteudo %}
+<h2 class="display-3">>>>Altere sua senha:</h2>
+<form action="/auth/alterar_senha" method="POST">
+
+    <div class="mb-3">
+        <input class="form-control" type="text" name="nova_senha1" id="" placeholder="Nova senha.">
+        <input class="form-control" type="text" name="nova_senha2" id="" placeholder="Confirme nova senha.">
+    </div>
+    <input type="submit" value="Alterar senha." class="btn btn-Info">
+    
+</form>
+    
+
+{% endblock %}
